@@ -117,11 +117,9 @@ class App extends Component {
     
     return (
       <div className="App">
-        <Layout>
-          {!loading &&
-            <Button state={light.state.on} onClick={this.toggleLight(light.id)} />
-          }
-        </Layout>
+        {!loading &&
+              <Button state={light.state.on} onClick={this.toggleLight(light.id)} />
+        }
       </div>
     )
   }
