@@ -8,7 +8,7 @@ class Button extends Component {
 
         return (
             <div className="lights-container">
-                <div onClick={() => onClick()} className={ lightOn ? "light-button" : "light-button on"} >{lightOn ? 'On' : 'Off'}</div>
+                <div onClick={() => onClick()} className={ lightOn ? "light-button on" : "light-button"} >{lightOn ? 'On' : 'Off'}</div>
             </div>
         )
     }
