@@ -4,7 +4,6 @@ import './layout.css'
 
 const Layout = ({children}) => (
   <div className="wrapper">
-    {children}
     <svg
       width="917px"
       height="409px"
@@ -20,6 +19,9 @@ const Layout = ({children}) => (
         fill="none"
         fillRule="evenodd"
       >
+        <g id="lights">
+          {children}
+        </g>
         <g
           id="reaktor-pohja-1-125-A3"
           transform="translate(458.000000, 205.000000) rotate(-270.000000) translate(-458.000000, -205.000000) translate(253.000000, -254.000000)"
