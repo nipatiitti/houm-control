@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 
 import config from './config.json'
 
-import Button from './components/Button'
+import Button from './components/button'
 
 class App extends Component {
 
@@ -35,17 +35,18 @@ class App extends Component {
         return response.json()
     })
     .then(data => {  
-        let lightOn = false
     
-        data.devices.forEach(device => {
-            if(device.id === config.ID) {
-                lightOn = device.state.on
-            }
+        let newData = {
+          zones: data.locations.zones
+        }
+
+        data.locations.rooms.forEach(room => {
+          for(newData)
         })
-    
+
         this.setState({
             loading: false,
-            lightOn
+            data
         })
     })
     .catch(e => {
@@ -76,6 +77,9 @@ class App extends Component {
   }
 
   render() {
+    const { data } = this.state
+    let buttons = []
+
     return (
       <div className="App">
         <Button onClick={this.toggleLight} lightOn={this.state.lightOn}/>
