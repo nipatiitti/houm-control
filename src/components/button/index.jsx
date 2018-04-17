@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 
-import config from './config.json'
+import config from '../../config.json'
 
 class Button extends Component {
+
     constructor(props) {
         super(props)
     
@@ -26,20 +27,33 @@ class Button extends Component {
         this.socket.emit('subscribe', { siteKey: config.siteKey })
     
         this.socket.on('siteKeyFound', ({ siteKey, data }) => {
+            console.log(data)
+        })
+
         let lightOn = false
     
-        data.devices.forEach(device => {
+        /* data.devices.forEach(device => {
             if(device.id === config.ID) {
                 lightOn = device.state.on
             }
-        })
+        }) */
     
         this.setState({
             loading: false,
-            data,
             lightOn
         })
-    
-        })
+    }
+
+    render() {
+        const { loading, lightOn } = this.state
+
+        return (
+            <div className="lights-container">
+                {loading && <p>Loading</p>}
+
+            </div>
+        )
     }
 }
+
+export default Button

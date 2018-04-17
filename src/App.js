@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import io from 'socket.io-client'
 
-import config from './config.json'
+import Button from './components/Button'
 
 
 class App extends Component {
@@ -9,8 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.loading && "Loading"}
-        {this.state.lightOn ? "päällä" : "pois"}
+        <Button />
       </div>
     );
   }
