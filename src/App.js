@@ -41,7 +41,7 @@ class App extends Component {
         }
 
         data.locations.rooms.forEach(room => {
-          for(newData)
+          
         })
 
         this.setState({
