@@ -2,8 +2,9 @@ import React from 'react'
 
 import './layout.css'
 
-const Layout = () => (
-  <div class="wrapper">
+const Layout = ({children}) => (
+  <div className="wrapper">
+    {children}
     <svg
       width="917px"
       height="409px"
@@ -15,9 +16,9 @@ const Layout = () => (
       <g
         id="Page-1"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="reaktor-pohja-1-125-A3"
