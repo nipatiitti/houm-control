@@ -4,12 +4,10 @@ import './button.css'
 class Button extends Component {
 
     render() {
-        const { lightOn, onClick } = this.props
+        const { state, onClick } = this.props
 
         return (
-            <div className="lights-container">
-                <div onClick={() => onClick()} className={ lightOn ? "light-button on" : "light-button"} >{lightOn ? 'On' : 'Off'}</div>
-            </div>
+            <div onClick={() => onClick(state)} className={ state ? "light-button on" : "light-button"} >{state ? 'On' : 'Off'}</div>
         )
     }
 }

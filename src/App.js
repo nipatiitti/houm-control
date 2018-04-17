@@ -5,6 +5,7 @@ import io from 'socket.io-client'
 import config from './config.json'
 
 import Button from './components/button'
+import Layout from './components/layout'
 
 class App extends Component {
 
@@ -14,7 +15,7 @@ class App extends Component {
     this.state = {
         lightOn: false,
         loading: true,
-        data: {}
+        data: []
     }
     
     this.socket = null
@@ -34,19 +35,41 @@ class App extends Component {
         }
         return response.json()
     })
-    .then(data => {  
-    
-        let newData = {
-          zones: data.locations.zones
-        }
+    .then(data => {
+
+        let zones = data.locations.zones.map(item => Object.assign({}, item, {rooms: []}))
 
         data.locations.rooms.forEach(room => {
-          
+          for(let i = 0; i < zones.length; i++) {
+            if(zones[i].id === room.zoneId) {
+              zones[i].rooms.push({
+                id: room.id,
+                name: room.name,
+                spots: [],
+                lights: []
+              })
+            }
+          }          
         })
+
+        data.devices.forEach(device => {
+          zones.forEach(zone => {
+            zone.rooms.forEach(room => {
+              if(room.id === device.roomId) {
+                if(device.type === 'dimmable')
+                  room.spots.push(device)
+                else
+                  room.lights.push(device)
+              }
+            })
+          })
+        })
+
+        console.log(zones)
 
         this.setState({
             loading: false,
-            data
+            data: zones
         })
     })
     .catch(e => {
@@ -60,12 +83,11 @@ class App extends Component {
     })
   }
 
-  toggleLight = () => {
-    const { lightOn } = this.state
+  toggleLight = id => state => {
 
     let data = {
-        id: config.ID,
-        state: { on: !lightOn, bri: !lightOn ? 255 : 0 },
+        id,
+        state: { on: !state, bri: 255 },
     }
     
     this.socket.emit('apply/device', {
@@ -73,18 +95,36 @@ class App extends Component {
         data
     })
 
-    this.setState({lightOn: !lightOn})
+  }
+
+  buttons = () => {
+    const { data } = this.state
+
+    const items = data.map(zones => {
+
+    })
   }
 
   render() {
-    const { data } = this.state
-    let buttons = []
+    const { loading, data } = this.state
 
+    let light = {}
+
+    if (!loading) {
+      light = data[1].rooms[2].lights[0]
+      console.log(light)
+    }
+    
     return (
       <div className="App">
-        <Button onClick={this.toggleLight} lightOn={this.state.lightOn}/>
+        {!loading &&
+          <div className="buttons">
+            <Button state={light.state.on} onClick={this.toggleLight(light.id)} />
+          </div>
+        }
+        <Layout />
       </div>
-    );
+    )
   }
 }
 
