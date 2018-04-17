@@ -7,6 +7,10 @@ import config from './config.json'
 import Button from './components/button'
 import Layout from './components/layout'
 
+import fs from 'fs'
+
+import id from './id.json'
+
 class App extends Component {
 
   constructor(props) {
@@ -22,8 +26,7 @@ class App extends Component {
   }
 
   dataToState = data => {
-
-    let zones = data.locations.zones.map(item => Object.assign({}, item, {rooms: []}))
+    let zones = data.locations.zones.map(item => Object.assign({}, item, {rooms :[]}))
 
     data.locations.rooms.forEach(room => {
       for(let i = 0; i < zones.length; i++) {
@@ -51,11 +54,10 @@ class App extends Component {
       })
     })
 
-    console.log(zones)
-
     this.setState({
         loading: false,
-        data: zones
+        zones,
+        devices: data.devices
     })
   }
 
@@ -107,30 +109,22 @@ class App extends Component {
 
   }
 
-  buttons = () => {
-    const { data } = this.state
-
-    const items = data.map(zones => {
-
-    })
-  }
-
   render() {
-    const { loading, data } = this.state
+    const { loading, devices } = this.state
+    if(loading) return null
 
-    let light = {}
+    let items = devices.filter(device => id[device.id])
 
-    if (!loading) {
-      light = data[1].rooms[2].lights[0]
-      console.log(light)
-    }
+    console.log(items)
     
     return (
       <div className="App">
         <Layout>
-          {!loading &&
-            <Button x={335} y={63} state={light.state.on} onClick={this.toggleLight(light.id)} />
-          }
+          <React.Fragment>
+            {items.map(item => (
+              <Button key={item.id} x={id[item.id].x} y={id[item.id].y} light={item} onClick={this.toggleLight} />
+            ))}
+          </React.Fragment>
         </Layout>
       </div>
     )

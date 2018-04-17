@@ -1,26 +1,7 @@
-.light-button {
-    padding: .5em;
-    border-radius: 2em;
-
-    background-color: rgba(255, 255, 128, 0.7);
-    max-width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 37%;
-    top: 9%;
+.switch {
+    padding: 1em;
 }
 
 .on {
-    padding: .1em;
-    border-radius: 2em;
-    background-color: rgba(255, 255, 0, 0.5);
-}
-
-.off {
-    padding: .5em;
-    border-radius: 2em;
-    background-color: rgba(192, 192, 102, 0.5);
+    fill: rgba(255, 255, 131, 0.85) !important;
 }

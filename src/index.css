@@ -4,9 +4,19 @@ body {
   font-family: sans-serif;
 }
 
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
 .wrapper {
+  height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .buttons {

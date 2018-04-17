@@ -4,10 +4,16 @@ import './button.css'
 class Button extends Component {
 
     render() {
-        const { state, onClick, x, y } = this.props
+        const { light, onClick, x, y } = this.props
 
         return (
-            <circle r={20} cx={x} cy={y} className={ state ? 'switch on' : 'switch'} onClick={() => onClick(state)} />
+            <circle
+                r={20}
+                cx={x}
+                cy={y}
+                className={ light.state.on ? 'switch on' : 'switch'}
+                onClick={() => onClick(light.id)(light.state.on)}
+            />
         )
     }
 }
